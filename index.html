@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EN-SEN TO-KYU (EST)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.png" type="image/png">
+</head>
+
+<body>
+    <div class="container">
+        <header class="app-header">
+            <img src="./logo.png" alt="Tokyu Group" class="logo">
+            <h1>EN-SEN TO-KYU (EST)</h1>
+        </header>
+
+        <section class="manual-section">
+            <details>
+                <summary>使用マニュアル (Usage Guide)</summary>
+                <div class="manual-content">
+                    <ol>
+                        <li><strong>住所を入力</strong>: 判定したい住所を入力フォームに入力します。<br><small>例: 東京都渋谷区道玄坂1-2-3</small></li>
+                        <li><strong>判定ボタンを押下</strong>: 「判定する」ボタンをクリックします。</li>
+                        <li><strong>結果確認</strong>:
+                            <ul>
+                                <li>東急沿線の場合: 最寄り駅・路線名・営業用トークスクリプトが表示されます。</li>
+                                <li>判定NGの場合: その旨が表示されます。</li>
+                            </ul>
+                        </li>
+                        <li><strong>ユーティリティ情報</strong>: 電気・水道・ガスの事業者情報と連絡先が自動で表示されます。</li>
+                    </ol>
+                </div>
+            </details>
+        </section>
+
+        <div class="input-card">
+            <div class="input-group">
+                <input type="text" id="addressInput" placeholder="住所を入力してください..." />
+                <button id="checkButton">判定する</button>
+            </div>
+        </div>
+
+        <div id="resultArea" class="hidden">
+            <div id="loading" class="hidden">
+                <div class="spinner"></div> Check...
+            </div>
+            <div id="resultContent"></div>
+            <div id="utilityInfo" class="utility-info hidden"></div>
+        </div>
+    </div>
+    <div class="footer">
+        ©タマシステム　2025 (Ver 1.02)
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="./utility_data.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
