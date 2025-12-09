@@ -117,6 +117,19 @@ function checkIsTokyu(stations) {
     return matchingStations.some(s => s.line.includes('東急'));
 }
 
+// Tokyu Line Priority Order
+const TOKYU_PRIORITY = [
+    '東急東横線',
+    '東急田園都市線',
+    '東急大井町線',
+    '東急目黒線',
+    '東急池上線',
+    '東急世田谷線',
+    '東急多摩川線',
+    '東急新横浜線',
+    '東急こどもの国線'
+];
+
 function renderResult(stations, isTokyu) {
     const resultContent = document.getElementById('resultContent');
     const resultArea = document.getElementById('resultArea');
@@ -134,7 +147,24 @@ function renderResult(stations, isTokyu) {
         <div class="distance">距離: およそ ${nearestStation.distance}m</div>
     `;
 
-    const tokyuLine = matchingStations.find(s => s.line.includes('東急'))?.line || '東急線';
+    // Determine Logic for Talk Script based on Priority
+    let tokyuLine = '東急線';
+    const tokyuLinesFound = matchingStations
+        .map(s => s.line)
+        .filter(line => line.includes('東急'));
+
+    if (tokyuLinesFound.length > 0) {
+        // Sort based on index in TOKYU_PRIORITY
+        // If not found in list (variable index = -1), put it at the end
+        tokyuLinesFound.sort((a, b) => {
+            let idxA = TOKYU_PRIORITY.indexOf(a);
+            let idxB = TOKYU_PRIORITY.indexOf(b);
+            if (idxA === -1) idxA = 999;
+            if (idxB === -1) idxB = 999;
+            return idxA - idxB;
+        });
+        tokyuLine = tokyuLinesFound[0];
+    }
 
     if (isTokyu) {
         html += `
